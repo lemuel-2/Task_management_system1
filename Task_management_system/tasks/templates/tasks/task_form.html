@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="card">
+    <div class="card-body">
+        {% if object %}
+            <h2>Edit Task</h2>
+        {% else %}
+            <h2>Assign Task</h2>
+        {% endif %}
+        <form method="post" novalidate>
+            {% csrf_token %}
+            {{ form.non_field_errors }}
+            <div class="mb-3">
+                {{ form.title.label_tag }}
+                {{ form.title }}
+                {{ form.title.errors }}
+            </div>
+            <div class="mb-3">
+                {{ form.description.label_tag }}
+                {{ form.description }}
+                {{ form.description.errors }}
+            </div>
+            <div class="mb-3">
+                {{ form.assigned_to.label_tag }}
+                {{ form.assigned_to }}
+                {{ form.assigned_to.errors }}
+            </div>
+            <div class="row">
+                <div class="col-md-6 mb-3">
+                    {{ form.priority.label_tag }}
+                    {{ form.priority }}
+                    {{ form.priority.errors }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    {{ form.due_date.label_tag }}
+                    {{ form.due_date }}
+                    {{ form.due_date.errors }}
+                </div>
+                <div class="col-md-6 mb-3">
+                    <div class="form-check mt-4">
+                        {{ form.completed }}
+                        {{ form.completed.label_tag }}
+                        {{ form.completed.errors }}
+                    </div>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-primary">Save</button>
+            <a class="btn btn-outline-secondary" href="{% url 'tasks:task-list' %}">Cancel</a>
+        </form>
+    </div>
+</div>
+{% endblock %}
